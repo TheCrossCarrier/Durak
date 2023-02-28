@@ -18,8 +18,8 @@ export default function Game({ user }) {
   const socket = useRef(
     io('https://durakfortg.click', {
       transports: ['websocket'],
-      query: { id: location.pathname.substring(1) }, // 63f4b13f3b35bdc122765b4a
-      auth: { id: user.id }, // 305544740
+      query: { id: location.pathname.substring(1) },
+      auth: user,
     })
   )
 
@@ -35,6 +35,20 @@ export default function Game({ user }) {
     socket.current.on('disconnect', () => {
       console.info('\nSocket disconnected: ', socket.current)
       setIsConnected(false)
+    })
+
+    socket.current.on('error', error => {
+      console.info('\nSocket error: ', error)
+    })
+
+    socket.current.on('reconnect_attempt', attempt => {
+      console.info(`\nSocket reconnection attempt. (${attempt})`)
+      socket.current.emit('game', { action: 'info' })
+    })
+
+    socket.current.on('reconnect', attempt => {
+      console.info('\nSocket reconnection successful. Attempt ' + attempt)
+      socket.current.emit('game', { action: 'info' })
     })
 
     socket.current.on('game', response => {
