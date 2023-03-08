@@ -2,12 +2,13 @@ import styled from 'styled-components'
 import sprite from '/src/assets/deck.png'
 import cardBack from '/src/assets/card-back_default.png'
 
-const spriteWidth = 4583, //px
-  spriteHeight = 1831, //px
-  spriteCardWidth = 318.1, //px
-  spriteCardHeight = 450, //px
-  spriteCardBorderRadius = 14, //px
-  spriteGap = 10 //px
+// In pixels:
+const spriteWidth = 4583,
+  spriteHeight = 1831,
+  spriteCardWidth = 318.1,
+  spriteCardHeight = 450,
+  spriteCardBorderRadius = 14,
+  spriteGap = 10
 
 export default styled.div.attrs(({ cardWidth, cardHeight, variety }) => {
   let width = parseFloat(cardWidth),
@@ -24,16 +25,22 @@ export default styled.div.attrs(({ cardWidth, cardHeight, variety }) => {
   if (width < 0 || height < 0)
     throw Error('Width and height must be greater than zero.')
 
-  if (variety[0] < 2 || variety[0] > 14)
-    throw Error('Card value must be from 2 to 14. Given: ' + variety[0])
+  if (!variety?.length) variety = undefined
+  let suitIdx
+  if (variety) {
+    if (variety[0] < 2 || variety[0] > 14)
+      throw Error('Card value must be from 2 to 14. Given: ' + variety[0])
 
-  const suitIdx = ['diamonds', 'clubs', 'hearts', 'spades'].indexOf(variety[1])
-  if (suitIdx === -1)
-    throw Error(
-      'Unexpected card suit. Available suits: ' +
-        'diamonds, clubs, hearts, spades. Given: ' +
-        variety[1]
+    suitIdx = ['diamonds', 'clubs', 'hearts', 'spades'].indexOf(
+      variety[1]
     )
+    if (suitIdx === -1)
+      throw Error(
+        'Unexpected card suit. Available suits: ' +
+          'diamonds, clubs, hearts, spades. Given: ' +
+          variety[1]
+      )
+  }
 
   const widthDifference = Math.abs(spriteCardWidth - width),
     heightDifference = Math.abs(spriteCardHeight - height)
@@ -47,9 +54,12 @@ export default styled.div.attrs(({ cardWidth, cardHeight, variety }) => {
     cardWidth: width,
     cardHeight: height,
     cardBorderRadius: spriteCardBorderRadius * factor,
-    offsetX: (spriteCardWidth + spriteGap) * (variety[0] - 2) * factor,
-    offsetY: (spriteCardHeight + spriteGap) * suitIdx * factor,
+    offsetX: variety
+      ? (spriteCardWidth + spriteGap) * (variety[0] - 2) * factor
+      : null,
+    offsetY: suitIdx ? (spriteCardHeight + spriteGap) * suitIdx * factor : null,
     bgWidth: spriteWidth * factor,
+    variety,
   }
 })`
   flex: 0 0 ${props => props.cardWidth}px;
@@ -59,11 +69,15 @@ export default styled.div.attrs(({ cardWidth, cardHeight, variety }) => {
   background-color: ${({ bgColor }) =>
     bgColor && bgColor !== '' ? bgColor : 'white'};
 
-  background-image: url('${sprite}');
-  background-repeat: no-repeat;
-  background-position-x: ${props => -props.offsetX}px;
-  background-position-y: ${props => -props.offsetY}px;
-  background-size: ${props => props.bgWidth}px;
+  ${({ variety, offsetX, offsetY, bgWidth }) =>
+    variety &&
+    `
+      background-image: url('${sprite}');
+      background-repeat: no-repeat;
+      background-position-x: ${-offsetX}px;
+      background-position-y: ${-offsetY}px;
+      background-size: ${bgWidth}px;
+  `}
 
   ${props => props.flipped && `background: url('${cardBack}') center / cover;`}
 

@@ -6,16 +6,20 @@ import {
   TrumpCard,
 } from './Deck.styled'
 
-function dealCard() {} //?
+// function dealCard() {} //?
 
 export default function Deck({ /* deckSize, ??? */ remainingCards, trump }) {
   return (
     <StyledDeck>
-      <RemainingQuantity>{remainingCards}</RemainingQuantity>
-      <Cards>
-        <TopCard variety={[2, 'clubs']} cardWidth='60' flipped />
-        <TrumpCard variety={trump} cardWidth='60' />
-      </Cards>
+      {remainingCards && trump && (
+        <>
+          <RemainingQuantity>{remainingCards}</RemainingQuantity>
+          <Cards>
+            <TopCard flipped cardWidth='60' />
+            <TrumpCard variety={trump} cardWidth='60' />
+          </Cards>
+        </>
+      )}
     </StyledDeck>
   )
 }

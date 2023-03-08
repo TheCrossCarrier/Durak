@@ -2,20 +2,23 @@ import styled from 'styled-components'
 import Card from '/src/styles/Card'
 
 export const StyledHand = styled.ul`
+  margin-bottom: -20px;
+  height: ${props => props.cardHeight}px;
   display: flex;
   justify-content: center;
   list-style: none;
 `
+
 export const CardInHand = styled(Card)`
-  transform: translateY(40%);
+  --offset-y: 25%;
+  transform: translateY(var(--offset-y));
   transition: transform 170ms ease;
 
   &:hover {
-    transform: translateY(calc(40% - 10px));
+    transform: translateY(calc(var(--offset-y) - 10px));
   }
 
   ${StyledHand} > & + & {
-    z-index: ${({ zIndex }) => zIndex};
     margin-left: -40px;
   }
 `

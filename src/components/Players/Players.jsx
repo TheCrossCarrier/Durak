@@ -1,15 +1,19 @@
-import Hand from '../Hand/Hand'
-import { StyledPlayers } from './Players.styled'
-import Player from '/src/styles/Player'
+import { StyledPlayers, PlayerCell } from './Players.styled'
+import Player from '/src/components/Player/Player'
+import PlayerHand from '../Hand/OtherHand'
 
 export default function Players({ players }) {
   return (
     <StyledPlayers>
       {players.map((player, idx) => (
-        <Player as='li' img={player.img} key={idx}>
-          <span>{player.name}</span>
-        </Player>
-        // {/* <Hand cards={player.cards} key={'m' + idx} /> */}
+        <PlayerCell key={idx}>
+          <Player
+            username={player.username}
+            img={player.img}
+            gameRole={player.role}
+          />
+          <PlayerHand cards={player.cards} />
+        </PlayerCell>
       ))}
     </StyledPlayers>
   )

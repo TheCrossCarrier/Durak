@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   StyledTopBar,
   RuleIcons,
@@ -16,6 +17,10 @@ import { FaPeopleArrows, FaBalanceScale, FaForward } from 'react-icons/fa'
 import cashIcon from '/src/assets/cash.png'
 
 export default function TopBar({ rules, bet }) {
+  // for (let [key, value] of Object.entries(rules)) {
+  //   rules[key] = Boolean(Number(value))
+  // }
+
   return (
     <StyledTopBar>
       <div></div>

@@ -1,17 +1,20 @@
-import { StyledActionBar, Button } from './ActionBar.styled'
-import Player from '/src/styles/Player'
+import { StyledActionBar, ButtonWrapper, Button } from './ActionBar.styled'
+import Player from '/src/components/Player/Player'
 
 export default function ActionBar({ actionBtnType, player }) {
   return (
     <StyledActionBar>
-      <div>
+      <ButtonWrapper>
         <Button onClick={actionBtnType.onClick}>{actionBtnType.label}</Button>
-      </div>
+      </ButtonWrapper>
 
-      <Player img={player.img}>
-        <span>{player.name}</span>
-      </Player>
+      <Player
+        username={player.username}
+        img={player.img}
+        gameRole={player.role}
+      />
 
+      {/* //? надо ли */}
       <div></div>
     </StyledActionBar>
   )

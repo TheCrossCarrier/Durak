@@ -22,8 +22,8 @@ export const RuleIcons = styled.ul`
 `
 
 export const RuleIcon = styled.div`
-  width: min(7.2vw, 32px);
-  height: min(7.2vw, 32px);
+  width: min(7.2vw, 22px);
+  height: min(7.2vw, 22px);
 
   & > * {
     width: 100%;
@@ -37,7 +37,7 @@ export const Bet = styled.div`
   justify-content: flex-end;
   align-items: center;
   column-gap: 0.3em;
-  font-size: clamp(20px, 6.1vw, 34px);
+  font-size: clamp(20px, 5vw, 30px);
   line-height: 1;
   color: var(--c-white);
 `

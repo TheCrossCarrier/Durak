@@ -24,6 +24,7 @@ export default createGlobalStyle`
   body {
     font-family: var(--ff-text);
     font-weight: 300;
+    user-select: none;
   }
 
   ul {

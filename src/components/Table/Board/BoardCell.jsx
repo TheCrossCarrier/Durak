@@ -4,9 +4,9 @@ import {
   CardOnBoard,
 } from './BoardCell.styled'
 
-export default function BoardCell({ bottomCard, topCard }) {
+export default function BoardCell({ bottomCard, topCard, ...props }) {
   return (
-    <StyledBoardCell>
+    <StyledBoardCell {...props}>
       <CardsContainer>
         <CardOnBoard variety={bottomCard} cardWidth='60' />
 

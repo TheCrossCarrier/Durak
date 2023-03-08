@@ -14,8 +14,6 @@ export const StyledPlayers = styled.ul`
   & > :nth-last-child(2) {
     margin-top: calc(var(--margin, var(--margin-top, 0)) + 10px);
   }
-
-  /* & > :nth-child(3),
-  & > :nth-last-child(3) {
-  } */
 `
+
+export const PlayerCell = styled.li``

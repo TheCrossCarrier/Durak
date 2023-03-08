@@ -2,11 +2,17 @@ import Deck from './Deck/Deck'
 import Board from './Board/Board'
 import { StyledTable } from './Table.styled'
 
-export default function Table({ cells, remainingCards, trump }) {
+export default function Table({
+  cells,
+  remainingCards,
+  trump,
+  clientPlayer,
+  throwCard,
+}) {
   return (
     <StyledTable>
-      <Deck remainingCards={remainingCards} trump={trump} />
-      <Board cells={cells} />
+      <Deck {...{ remainingCards, trump }} />
+      <Board {...{ cells, clientPlayer, throwCard }} />
       <div></div>
     </StyledTable>
   )
